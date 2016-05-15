@@ -1,0 +1,741 @@
+-namespace module="plimsolls.formatters.code2html" name="code2html"
+
+-py
+  subject = "Reactive Programming in Python"
+
+doctype 5
+html lang="en"
+  head
+    title ${subject} -- Keith Yang
+    meta charset="utf-8"
+    meta http-equiv="x-ua-compatible" content="ie=edge"
+    meta name="viewport" content="width=device-width, initial-scale=1"
+    link rel="stylesheet" href="shower/material/styles/screen-16x9.css"
+    link rel="stylesheet" href="font-awesome/css/font-awesome.min.css"
+    link rel="stylesheet" href="pygments.css"
+    -sass
+      .text-center { text-align:center; }
+      $kred: #d43842;
+      $kblue: #498cd6;
+      $kblack: #121212;
+      $kwhite: #f0f0f0;
+      $pyctw: #3e6df5;
+      $fs: 30px;
+      .name { font-family: Trebuchet MS, Lucida Grande, Lucida Sans, Tahoma, sans-serif }
+      .slide,.slide.active {
+        &.loading { background: $kblack; }
+        &.fullcode { 
+          h2 { margin-top: -36px; margin-bottom: 40px; }
+          pre { margin-top: -36px; }
+          &.max h2 { margin-top: -60px; margin-bottom: 64px; }
+          &.max pre { margin-top: -54px;
+            .codehilite {font-size: 26px;} }
+        }
+        &.outlines h3 { font-size: 38px; }
+        h2 { color: $kred; }
+        h2.focustitle { color:#FFF;
+          text-shadow: 0 0 32px #000, 0 0 16px #000, 0 0 8px #000, 0 0 4px #000; }
+        h2.focustitle.red { color: $kred;
+          text-shadow: 0 0 32px #fff, 0 0 16px #fff, 0 0 8px #fff, 0 0 4px #fff,
+            0 0 32px #fff, 0 0 16px #fff, 0 0 8px #fff, 0 0 4px #fff,
+            0 0 64px #fff, 0 0 48px #fff, 0 0 32px #fff, 0 0 4px #fff; }
+        h2.shout { color: #FFF; }
+        a { background: none; }
+        .kred { color: $kred; }
+        .kblue { color: $kblue; }
+        .kblack { color: $kblack; }
+        .kwhite { color: $kwhite; }
+        .pyctw { color: $pyctw; }
+        font-size: $fs;
+        p,li { font-size: $fs}
+        i.fa {
+          font-style: normal;
+          text-indent: 0;
+        }
+        .fs-xl { font-size: 180%; }
+        .fs-l { font-size: 160%; }
+        .fs-s { font-size: 80%; }
+        .fs-xs {
+          font-size: 60%;
+          ul li { font-size: 60%; } }
+        pre .codehilite {
+          font-size: 28px;
+          line-height: 1.2;
+          padding: .1em .3em;
+          background: #efefcf;
+        }
+        .text-right { text-align: right; }
+      }
+
+  body.shower.list
+
+    header.caption
+      h1 = subject
+      p.name Keith Yang
+
+    section#game.slide.loading
+      h2 What is Reactive?
+      img.cover src="pictures/how_reactive.jpg" alt="" width="100%"
+      -sass
+        $bias: 24px;
+        #game {
+          h2 { color:#FFF;
+            text-shadow: $bias $bias 1px #f36131, -$bias*2 -$bias*2 2px #63a1f1,
+            $bias*3 $bias*3 3px #33f161, -$bias*4 -$bias*4 4px #f3f161 }
+        }
+
+    section.slide
+      h2.shout Game
+        br
+          span is reactive.
+
+    section.slide
+      h2.shout Presentation? 
+        br
+          span.next not
+
+    section.slide
+      h2.focustitle.fs-xl ... if you fall into sleep
+      img.cover src="pictures/fall_into_sleep.jpg" alt="" width="100%"
+
+    section#cover.slide
+        h2 Reactive Programming
+          br in Python
+        hr
+        h4
+          a.name href="https://yang.keitheis.org" Keith Yang
+        pre: code
+            a(href="mailto:yang@keitheis.org") yang@keitheis.org
+          br, @keitheis
+            a.kblack href="https://twitter.com/keitheis": i.fa.fa-twitter
+            ,
+            a.kblack href="https://bitbucket.org/keitheis": i.fa.fa-bitbucket
+            ,
+            a.kblack href="https://github.com/keitheis": i.fa.fa-github
+        pre: code.text-center.pyctw PyCon Taiwan 2016
+
+    section.slide
+      img.cover src="pictures/mecollage.png"
+
+    section.slide
+      h2.text-center `i.fa.fa-battery-full` Keith Yang
+      h3.text-center.kred Sofeware Engineering Artisan
+      -md
+        - Coding
+        - Agile
+        - Web & Cloud & Virtualization
+      p.text-center.fs-s
+        , `a href='http://taipei.python.org.tw/' @Taipeipy`
+        | & `a href='http://tw.pycon.org/' @PyConTW`
+
+    section.outlines.slide
+      h2 Outlines
+      h3 I. What & Why `i.fa.fa-info-circle`
+      h3 II. Dive into `i.fa.fa-heart` & play with `i.fa.fa-gamepad`
+      h3 III. Thumbs up `i.fa.fa-thumbs-up`
+      p.note.text-center
+        | Reactive Programming in Python
+
+    section.slide
+      h2.shout I. What is
+        br Reactive Programming?
+
+    section.slide.loading
+      h2.focustitle My hand... tell me!
+      img.cover src="pictures/holograph.jpg" alt="" width="100%"
+
+    section.slide
+      h2 Seen on web application
+      -md
+        - The feel of <mark>interactive</mark>
+        - For example:
+          - Hackfoldr, Gitter, Slack, Web IRC, ...
+          - Gmail, Facebook, Twitter, Pinterest, Plurk, ...
+          - Online map, calendars, document, ...
+
+    section.slide
+      h2.shout I mean...
+        br programming?
+
+    section.slide
+      h2.shout Functional
+        br Python
+        br 101 `i.fa.fa-check-square-o` 
+
+    section.slide
+      h2 Map
+      p
+        | Map a iterable, i.e., a list, to a function.
+      -py
+        code = """
+          In [1]: str_map = map(str, [1, 2, 3])
+
+          In [2]: list(str_map)
+          Out[2]: ['1', '2', '3']"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 Lambda
+      p
+        | Create small anonymous function inline
+      -py
+        code = """
+          In [1]: multiple_7 = lambda x: x * 7
+
+          In [2]: type(multiple_7)
+          Out[2]: function
+
+          In [3]: multiple_7(6)
+          Out[3]: 42"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 Map & Lambda
+      -py
+        code = """
+          In [1]: list(map(lambda x: x * 2, [1, 2, 3]))
+
+          Out[1]: [2, 4, 6]"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 Programming Paradigms
+
+      ul
+        li Declarative (i.e., Functional programming)
+          br
+            span.fs-s.next Functional languages: `span.kblue Scheme, Clojure, Erlang, Haskell, OCaml`
+        li Imperative (i.e., Procedural programming)
+          br
+            span.fs-s.next Procedural programming languages: `span.kblue C, Go, Fortran, Pascal, and BASIC`
+
+    section.slide
+      h2 Declarative: Dataflow: Reactive
+
+      h3 Category of Reactive Programming Paradigm
+
+      h4 Relatives:
+      -md
+        - Declarative: Functional
+        - Dataflow: Flow-based programming
+
+    section.slide
+      h2.shout
+        | (Events) Stream
+
+    section.slide
+      h2 Stream<span class="next">: Core Spirit of Reactive<span>
+      p
+        | “Everything can be a stream!”
+      p
+        | The mantra of Reactive Programming.
+      p
+        | In brief a sequence of events.
+
+    section.slide.loading
+      h2.focustitle Stream
+      img.cover src="pictures/stream.jpg" alt="" width="100%"
+
+    section.slide
+      h2 Stream in `mark for in if`
+      -py
+        code = """
+          ( expression for expr in sequence1
+                       if condition1
+                       for expr2 in sequence2
+                       if condition2
+                       for expr3 in sequence3 ...
+                       if condition3
+                       for exprN in sequenceN
+                       if conditionN )"""
+      pre: code == code2html.reformat('python', code)
+      p.note.text-center visual messive!
+
+    section.fullcode.slide
+      -py
+        code = """
+          from pathlib import Path
+          from zipfile import ZipFile
+
+          files_stream = (
+              ZipFile(file.name)
+              for file in Path(".").iterdir()
+              if file.name.lower().endswith('.zip')
+          )
+
+          zipped_content_list = []
+          for a_zipfile in files_stream:
+              for item_name in a_zipfile.namelist():
+                  zipped_content_list.append(item_name)"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2.shout Rewrite in
+        br a reactive style
+
+    section.fullcode.slide
+      -py
+        code = """
+          from pathlib import Path
+          from zipfile import ZipFile
+          from functional import seq
+
+          zipped_content_list = (
+              seq(Path(".").iterdir())
+              .filter(lambda item: item.is_file())
+              .filter(
+                lambda file: file.name.lower().endswith('.zip')
+              ).map(ZipFile)
+              .flat_map(lambda a_zipfile: a_zipfile.namelist())
+          )"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 Feel like SQL query
+      -py
+        code = """
+          db.query(users) \\
+            .filter(role == Cafe.customer) \\
+            .filter(cups_bought >= 100_000_000) \\
+            .update(state="caffeinated")"""
+      pre: code == code2html.reformat('java', code)
+
+    section.slide
+      h2.shout Better?
+        br It depends.
+
+    section.slide
+      h2 Why Reactive Programming
+      ul
+        li Abstraction
+        li Focus on business logic
+        li Concise code
+        li Performance
+          ul.next
+            li Usually seen in `mark <strong>asynchronous</strong>` context
+            li Parallel processing, smallest unit of change
+
+    section.slide
+      h2.shout Aannndddd...
+
+    section.slide
+      h2.shout `i.fa.fa-check-square-o` Functional 
+        br
+          span.next `i.fa.fa-check-square-o` 潮到出水
+
+    section.slide
+      h2.focustitle.red Quicksort Example
+      img.cover src="pictures/qsort.png" alt=""
+
+    section.slide
+      h2 Quicksort logic in Ocaml
+      -py
+        code = """
+          let rec qsort = function
+            | [] -> []
+            | pivot :: rest ->
+              let is_less x = x < pivot in
+              let left, right = List.partition is_less rest in
+              qsort left @ [pivot] @ qsort right;;"""
+      pre: code == code2html.reformat('ocaml', code)
+
+    section.slide
+      h2 Code Smell
+      -py
+        code = """
+          num_stream = [1, 2, 3, 4, 5, 6]
+          
+          evens1 = []
+          for n in numbers:
+              if (n % 2) == 0:
+                  evens1.append(n)  # Imperactive
+          
+          evens2 = [n for n in num_stream if (n % 2) == 0]
+
+          # List comprehension result: [2, 4, 6]"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2.shout Try
+        br PyFunctional
+
+    section.slide
+      h2 Code Smell (Cont.)
+      h3 Functional Reactive Programming (FRP)
+      -py
+        code = """
+          from functional import seq
+          
+          def is_even(num):  # Big business logic!
+              return (num % 2) == 0
+          
+          evens3 = seq(num_stream).filter(is_even)
+          # [2, 4, 6]"""
+      pre: code == code2html.reformat('python', code)
+      p.note.text-center
+        <code>functional</code> module is provided by PyFunctional
+
+    section.slide
+      h2 Real life example: find_kernels()
+      -py
+        code = """
+          kernels = [
+              f.name for f in folder_path.iterdir()
+              if f.is_file() and f.name.startswith('vmlinuz')
+          ]
+          # How to add one or two more levels of loop?
+
+          kernels = seq(folder_path.iterdir()) \\
+              .filter(lambda f: f.is_file()) \\
+              .filter(lambda f: f.name.startswith('vmlinuz')) \\
+              .filter(lambda f: 'rescue' not in k.name) \\
+              .map(lambda f: f.name)"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2.shout A = B + C
+
+    section.slide.loading
+      h2.focustitle.red Spreadsheet
+      img.cover src="pictures/spreadsheet.png" alt=""
+
+    section.slide.loading
+      h2.focustitle.red Spreadsheet is “Reactive”
+      img.cover src="pictures/spreadsheet_react.png" alt=""
+
+    section.slide
+      h2 Recap:
+        br What Reactive Programming
+      -md
+        - A programming paradigm
+        - Core spirit: Stream
+        - Code look: sequence, map, and lambda
+
+    section.slide
+      h2 Recap:
+        br Why Reactive Programming
+      -md
+        - Functional style <i class="fa fa-long-arrow-right"></i> focus on logic
+        - Asynchronous candy <i class="fa fa-long-arrow-right"></i> performance in a concise way
+
+    section.slide
+      h2.shout II. Dive into Reactive `i.kblack.fa.fa-stethoscope`
+
+    section.outlines.slide
+      h2 Stream Fun
+      ol
+        li Alike workload
+        li  Merge
+        li Re-use
+
+    section.slide
+      h2 A example powered by RxPy (rx)
+      -py
+        code = """
+          import rx
+          num_stream = [1, 2, 3, 4]
+
+          num_flow = rx.Observable.from_(num_stream)
+          num_flow.subscribe(print)"""
+      pre: code == code2html.reformat('python', code)
+
+    section.fullcode.slide
+      -py
+        code = """
+          In [1]: import rx
+
+          In [2]: num_stream = [1, 2, 3, 4]
+
+          In [3]: num_flow = rx.Observable.from_(num_stream)
+
+          In [4]: num_flow.subscribe(print)
+          1
+          2
+          3
+          4
+          Out[4]: <rx.disposables.AnonymousDisposable
+                   .AnonymousDisposable at 0x1041fcac8>"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 Merge
+      -py
+        code = """
+          chars_flow = rx.Observable.from_(["a", "b", "c"])
+          numbers_flow = rx.Observable.from_([1, 2, 3, 4])
+          # or rx.Observable.range(1, 4)
+
+          printable_flow = numbers_flow.map(
+              lambda num: num * 2
+          ).merge(chars_flow)
+
+          printable_flow.subscribe(print)
+          # a 2 b 4 c 6 8 10"""
+      pre: code == code2html.reformat('python', code)
+
+    section.fullcode.slide
+      h2 Most.js - Live Demo
+      figure
+        blockquote Mouse position X, Y = `span.most-show`
+      br
+      -py
+        code = """
+          most.fromEvent('mousemove', document)
+            .map(function(event) {
+              return event.clientX + ',' + event.clientY;
+            })
+            .startWith('move the mouse, please')
+            .observe(function(xy_str) {
+              document.body.textContent = xy_str;
+            });"""
+      pre: code == code2html.reformat('javascript', code)
+      p.note.text-center
+        Most.js - Monadic reactive streams
+
+    section.slide
+      h2 `a(href="http://reactivex.io/") ReactiveX`
+      
+      -md
+        - Microsoft's open-source [Reactive Extensions](http://msdn.microsoft.com/en-us/data/gg577609.aspx) library (Rx)
+        - Compose programs of
+           - Asynchronous
+           - Event-based
+        - By using observable sequences.
+
+    section.slide
+      h2 ReactiveX (Cont.)
+      img.cover src="pictures/rx.jpg" alt="" width="100%"
+      ul.kwhite
+        li RxPy
+        li RxJava
+        li RxJS
+        li Rx.NET
+        li RxSwift
+
+    section.slide
+      h2 Even in C++: RxCpp
+      -py
+        code = """
+          auto num_flow = rxcpp::observable<>::create(
+             [](rxcpp::subscriber<int> s){
+                for(i=0; i<=5; i++)
+                   s.on_next(i);
+                s.on_completed();
+             });
+
+           num_flow.subscribe(
+              [](int v){printf("OnNext: %d\\n", v);},
+              [](){printf("OnCompleted\\n");});"""
+      pre: code == code2html.reformat('cpp', code)
+
+    section.slide
+      h2 Abstract away
+      -md
+        - Low-level threading
+        - Synchronization
+        - Thread-safety
+        - Concurrent data structures
+        - Non-blocking I/O
+
+    section.slide
+      h2.shout Focus `i.fa.fa-star`
+        br on biz logic
+
+    section.slide
+      h2.shout `span.kblack Asynchronous` Programming is Ha...Ha...Hard
+
+    section.fullcode.max.slide
+      -py
+        code = """
+          import time
+          import concurrent.futures
+          import rx
+
+          num_stream = [1, 2, 3, 4, 5]
+
+          def work_slowly(data):
+              time.sleep(1)
+              return data * 2
+
+          with concurrent.futures.ProcessPoolExecutor(5) as worker:
+              rx.Observable.from_(num_stream) \\
+                  .flat_map(
+                      lambda num: worker.submit(work_slowly, num)
+                  ).subscribe(print)"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 Observable, flat_map, subscribe
+      -py
+        code = """
+          with concurrent.futures.ProcessPoolExecutor(5) as worker:
+              rx.Observable.from_(num_stream) \\
+                  .flat_map(
+                      lambda num: worker.submit(work_slowly, num)
+                  ).subscribe(print)"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2.shout Why Observables?
+
+    section.slide
+      h2 Observables
+      p
+        | “Observable model allows you to `span.kred treat` streams
+          of Asynchronous events with the `span.kred same sort of operations` that you use for collections of data items like arrays.  It `span.kred frees you from callbacks`, and thereby makes your code more readable and `span.kred less prone to bugs`.” 
+
+    section.slide
+      h2 Observables (cont.)
+      h3 In brief:
+      -md
+        - Use same interface to treat streams
+        - More readable code
+           - ease the pain of callback
+        - Less bugs
+
+    section.slide
+      h2 flap_map
+      figure
+			  blockquote I want values,
+          br `i.fa.fa-long-arrow-right` inside each event.
+
+    section.slide
+      h2 Demo the behavior of flap_map() 
+      -py
+        code = """
+          str_lists = [["6", "03"], ["42"]]
+
+          list1 = []
+          for str_list in str_lists:
+              for var in str_list:
+                  list1.append(int(var))
+
+          # [6, 3, 42]"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 flat_map in PyFunctional
+      -py
+        code = """
+          from functional import seq
+
+          def int_list(iterable):
+              return [int(var) for var in iterable]
+          
+          list2 = seq(str_lists).flat_map(int_list)
+          # [6, 3, 42]"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2 Parallel with Rx Schedulers
+      p 
+        | You can use every scheduler you like
+        br to decide where to execute the work.
+
+    section.slide
+      h2 A RxJava example
+      -py
+        code = """
+          Observable<Integer> num_flow = Observable
+            .range(1, 6)
+            .doOnEach(debug("Did"));
+
+          num_flow.subscribe(num -> System.out.println(num));"""
+      pre: code == code2html.reformat('java', code)
+
+    section.slide
+      h2 Parallel with RxJava
+      -py
+        code = """
+          Observable<Integer> num_flow = Observable
+            .range(1, 6)
+            .flatMap(n -> Observable
+              .range(n, 3)
+              .subscribeOn(Schedulers.computation())
+              .doOnEach(debug("Did"))
+            );
+          num_flow.subscribe(num -> System.out.println(num));"""
+      pre: code == code2html.reformat('java', code)
+
+    section.slide
+      h2 The look of parallel output
+      -py
+        code = """
+          RxComputationThreadPool-3|Did: >3
+          RxComputationThreadPool-1|Did: >1
+          RxComputationThreadPool-2|Did: >4
+          RxComputationThreadPool-3|Did: ->2
+          RxComputationThreadPool-1|Did: >7
+          RxComputationThreadPool-2|Did: ->6
+          RxComputationThreadPool-3|Did: -->5
+          RxComputationThreadPool-3|Did: --->|"""
+      pre: code == code2html.reformat('python', code)
+
+    section.slide
+      h2.shout III. Summary `i.fa.fa-thumbs-up`
+
+    section.slide
+      h2.shout Try functional
+        br & async with Rx
+
+    section.slide
+      h2 Try functional & async with Rx
+      -md
+        - Win the <mark>stream</mark> of repeated and alike <mark>events</mark>
+        - Focus on the <mark>business logic</mark>
+          - powered by functional programming.
+        - Drive <mark>asynchronous</mark> programming
+
+    section#references.slide
+      h2 References
+      ul
+        li Book: Python Reactive Programming, November 2016
+        li Book: Reactive Programming with Scala and Akka, February 2016
+        li Book: Reactive Programming with RxJava, August 2016
+          br
+            img src="pictures/rxpybook.png" alt=""
+            ,
+            img src="pictures/rxscalabook.png" alt=""
+            ,
+            img src="pictures/rxjavabook.gif" alt=""
+      p.note `i Python Reactive Programming` is wrote by Dag Brattli, RxPy author
+      -sass
+        #references {
+          img { height: 200px; }
+          ul li { font-size: smaller; }
+        }
+        
+    section.slide
+      h2 References (Cont.)
+      ul
+        li On Github `i.fa.fa-github` : PyFunctional, RxPy
+        li Gist:
+          i, The introduction to Reactive Programming you've been missing
+          , by @andrestaltz,
+          span.not including the use case of Promise
+
+        li Slide:
+          i, Functional Reactive Python On Introducing CS to High School Students
+          | by John Peterson
+
+    section.slide
+      h2.shout.text-center Q&A `i.fa.fa-battery-1` 
+
+    section.slide
+      h2.shout Thank You! `i.fa.fa-battery-empty` 
+
+    .progress
+
+    <!-- Copyright © 2016 Keith Yang -->
+    script src="shower/shower.min.js"
+    script src="lib/most.min.js"
+    script
+      most.fromEvent('mousemove', document)
+          .map(function(event) {
+              return event.clientX + ', ' + event.clientY;
+          })
+          .startWith('move the mouse, please')
+          .observe(function(xy_str) {
+              document.querySelector('.most-show').textContent =  xy_str;
+          });
+    script document.write('<script src="http://' + (location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1"></' + 'script>')

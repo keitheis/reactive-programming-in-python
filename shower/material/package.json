@@ -1,0 +1,48 @@
+{
+  "name": "shower-material",
+  "description": "Material theme for Shower HTML presentation engine",
+  "version": "1.0.4",
+  "author": {
+    "name": "Vadim Makeev",
+    "url": "http://pepelsbey.net/"
+  },
+  "homepage": "https://github.com/shower/material",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/shower/material.git"
+  },
+  "bugs": {
+    "url": "http://github.com/shower/material/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "shower",
+    "presentation",
+    "material",
+    "theme"
+  ],
+  "files": [
+    "docs/**",
+    "fonts/**",
+    "images/**",
+    "pictures/**",
+    "styles/*.css",
+    "index.html",
+    "LICENSE.md",
+    "README.md"
+  ],
+  "devDependencies": {
+    "autoprefixer": "^6.3.6",
+    "browser-sync": "^2.12.10",
+    "gulp": "^3.9.1",
+    "gulp-header": "^1.8.2",
+    "gulp-postcss": "^6.1.1",
+    "gulp-sass": "^2.3.1",
+    "postcss-csso": "^1.1.2"
+  },
+  "scripts": {
+    "dev": "gulp",
+    "styles": "gulp styles",
+    "prepublish": "npm run styles"
+  }
+}
