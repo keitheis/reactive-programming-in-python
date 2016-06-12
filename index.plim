@@ -544,6 +544,18 @@ html lang="en"
         br on biz logic
 
     section.slide
+      h2 Concurrent
+      img src="pictures/gopher_concurrency.jpg"
+
+    section.slide
+      h2 Parallel
+      img src="pictures/gopher_parallel.jpg" width="50%"
+      figure
+			  blockquote
+          | Parallel execution is concurrent by definition,
+            but concurrency is not necessarily parallelism. 
+
+    section.slide
       h2.shout `span.kblack Asynchronous` Programming is Ha...Ha...Hard
 
     section.fullcode.max.slide
@@ -578,35 +590,64 @@ html lang="en"
       pre: code == code2html.reformat('python', code)
 
     section.slide
-      h2.shout Why
-        br Observables?
+      h2.shout Why & What
+        br Observables
 
     section.slide
-      h2 Observables
-      p
-        | “Observable model allows you to `mark treat` streams
-          of Asynchronous events with the `mark same sort of operations`
-          that you use for collections of data items like arrays.
-          It `mark frees you from callbacks`, and thereby makes your code more
-          readable and `mark less prone to bugs`.” 
+      h2 Why Observables
+      figure
+			  blockquote
+          | Observable model allows you to `mark treat` streams
+            of Asynchronous events with the `mark same sort of operations`
+            that you use for collections of data items like arrays.
+            It `mark frees you from callbacks`, and thereby makes your code more
+            readable and `mark less prone to bugs`.
 
     section.slide
-      h2 Observables (cont.)
-      h3 In brief:
-      -md
-        - Use same interface to treat streams
-        - More readable code
-           - ease the pain of callback
-        - Less bugs
+      h2 What Observables
+      figure
+			  blockquote
+          | To support receiving events via push,
+            an Observable/Observer pair connect via subscription.
+            The Observable `mark represents the stream of data`
+            and `mark can be subscribed to by an Observer`
 
     section.slide
-      h2 flap_map
+      h2 What Observables (Cont.)
+      figure
+			  blockquote
+        | An Rx Observable is the `mark async “dual” of an Iterable`.
+          By “dual”, it means that the Observable provides
+          all the functionality of an Iterable except in
+          the reverse flow of data: it is push instead of pull.
+
+    section.slide
+      h2 Observable v.s. Iterable
+      table
+        tr
+          th Pull (Iterable)
+          th Push (Observable)
+        tr
+          td it.next()
+          td on_next(it)
+        tr
+          td raise Exception
+          td on_error(Exception)
+        tr
+          td returns
+          td on_completed()
+
+    section.slide
+      h2 flat_map
       figure
 			  blockquote I want values,
           br `i.fa.fa-long-arrow-right` inside each event.
+      figure
+			  blockquote To compose asynchronous streams
+          br `i.fa.fa-long-arrow-right` together concurrently.
 
     section.slide
-      h2 Demo the behavior of flap_map() 
+      h2 Imaginate the behavior of flat_map() 
       -py
         code = """
           str_lists = [["6", "03"], ["42"]]
@@ -618,6 +659,8 @@ html lang="en"
 
           # [6, 3, 42]"""
       pre: code == code2html.reformat('python', code)
+      p.note.text-center
+        This example is much simplified for imagination purpose.
 
     section.slide
       h2 flat_map in PyFunctional
@@ -634,9 +677,14 @@ html lang="en"
 
     section.slide
       h2 Parallel with Rx Schedulers
-      p 
-        | You can use every scheduler you like
-        br to decide where to execute the work.
+      figure
+        blockquote
+          | Rx is concurrency-agnostic and as a matter of fact 
+            it does not introduce concurrency on its own.
+      figure
+        blockquote
+          | You can use every scheduler you like
+            to decide where to execute the work.
 
     section.slide
       h2 A RxJava example
@@ -678,9 +726,8 @@ html lang="en"
       pre: code == code2html.reformat('python', code)
 
     section.slide
-      h2.shout Pure RxPy
-        br without
-        br import futures
+      h2.shout RxPy
+        br with Scheduler
 
     section.fullcode.max.slide
       -py
@@ -768,7 +815,7 @@ html lang="en"
     section.slide
       h2 Try functional & async with Rx
       -md
-        - Win the <mark>stream</mark> of repeated and alike <mark>events</mark>
+        - Master the <mark>stream</mark> of repeated and alike <mark>events</mark>
         - Focus on the <mark>business logic</mark>
           - powered by functional programming.
         - Drive <mark>asynchronous</mark> programming
