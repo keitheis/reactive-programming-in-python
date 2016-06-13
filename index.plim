@@ -985,14 +985,20 @@ html lang="en"
     section.slide
       h2 References (Cont.)
       ul
-        li On Github `i.fa.fa-github` : PyFunctional, RxPy
+        li
+          | On Github `i.fa.fa-github` : 
+            `a href="https://github.com/EntilZha/PyFunctional" PyFunctional`,
+            `a href="https://github.com/ReactiveX/RxPY" RxPy`,
+            `a href="https://github.com/zoofIO/flexx" Flexx`
         li Gist:
-          i, The introduction to Reactive Programming you've been missing
+          a href="https://gist.github.com/staltz/868e7e9bc2a7b8c1f754"
+            i, The introduction to Reactive Programming you've been missing
           , by @andrestaltz,
           span.not including the use case of `mark Promise`
 
         li Slide:
-          i, Functional Reactive Python On Introducing CS to High School Students
+          a href="http://www.cs.ox.ac.uk/ralf.hinze/WG2.8/25/slides/john.pdf"
+            i, Functional Reactive Python On Introducing CS to High School Students
           | by John Peterson
 
     section.slide
