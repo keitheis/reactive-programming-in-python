@@ -896,6 +896,47 @@ html lang="en"
       pre: code == code2html.reformat('python', code)
 
     section.slide
+      h2.shout Flexx
+        br Python UI tookit
+
+    section.fullcode.max.slide
+      h2 UI tookit based on web technology
+      -py
+        code = """
+          from flexx import app, ui, event
+
+          class Example(ui.Widget):
+              def init(self):
+                  self.count = 0
+                  with ui.HBox():
+                      self.button = ui.Button(text='Click me', flex=0)
+                      self.label = ui.Label(flex=1)
+
+              @event.connect('button.mouse_down')
+              def _handle_click(self, down):
+                  if down:
+                      self.count += 1
+                      self.label.text = 'clicked %i times' % self.count
+
+          main = app.launch(Example)
+          app.run()"""
+      pre: code == code2html.reformat('python', code)
+      p.note.text-center This example requires `code flexx > 0.3.1`
+
+    section.slide
+      h2 Reactive concept in flexx
+      -py
+        code = """
+          @event.connect('button.mouse_down')
+          def _handle_click(self, down):
+              ..."""
+      pre: code == code2html.reformat('python', code)
+      p
+        | `code event.connect` subscribes mouse-down event(
+          `code button.mouse_down`)
+          to `code _handle_click` function.
+
+    section.slide
       h2.shout III. Summary `i.fa.fa-thumbs-up`
 
     section.slide
