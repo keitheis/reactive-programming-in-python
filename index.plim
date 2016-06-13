@@ -55,9 +55,12 @@ html lang="en"
         }
         .fs-xl { font-size: 180%; }
         .fs-l { font-size: 160%; }
-        .fs-s { font-size: 80%; }
+        .fs-s { font-size: 80%;
+          li { font-size: 80%; }
+        }
         .fs-xs {
           font-size: 60%;
+          li { font-size: 60%; }
           ul li { font-size: 60%; } }
         pre .codehilite {
           font-size: 28px;
@@ -178,7 +181,7 @@ html lang="en"
     section.slide
       h2 Lambda
       p
-        | Create small anonymous function inline
+        | Create small `mark anonymous function` inline.
       -py
         code = """
           In [1]: multiple_7 = lambda x: x * 7
@@ -189,6 +192,8 @@ html lang="en"
           In [3]: multiple_7(6)
           Out[3]: 42"""
       pre: code == code2html.reformat('python', code)
+      p.note.text-center
+        Function is first-class object in Python.
 
     section.slide
       h2 Map & Lambda
@@ -525,9 +530,9 @@ html lang="en"
                 s.on_completed();
              });
 
-           num_flow.subscribe(
-              [](int v){printf("OnNext: %d\\n", v);},
-              [](){printf("OnCompleted\\n");});"""
+          num_flow.subscribe(
+             [](int v){printf("OnNext: %d\\n", v);},
+             [](){printf("OnCompleted\\n");});"""
       pre: code == code2html.reformat('cpp', code)
 
     section.slide
@@ -773,7 +778,35 @@ html lang="en"
       pre: code == code2html.reformat('text', code)
 
     section.slide
-      h2 Plus: Parallel Algorithms in PyToolz
+      h2 RxPy Schedulers
+      figure
+        blockquote
+          | In RxPY you can choose to run fully asynchronously or you may decide
+            to schedule work and timeouts using threads.
+      figure
+        blockquote
+          | RxPY also comes with batteries included, and has a number of Python
+            specific mainloop schedulers to make it easier for you to use RxPY
+            with your favorite Python framework.
+
+    section.slide
+      h2 RxPy Schedulers (Cont.)
+      ul.fs-s
+        li AsyncIOScheduler `i.fa.fa-long-arrow-left` `mark AsyncIO`
+        li IOLoopScheduler `i.fa.fa-long-arrow-left` `mark IOLoop`
+        li GEventScheduler `i.fa.fa-long-arrow-left` `mark GEvent`
+        li TwistedScheduler `i.fa.fa-long-arrow-left` `mark Twisted`
+        li TkinterScheduler `i.fa.fa-long-arrow-left` `mark Tkinter`
+        li PyGameScheduler `i.fa.fa-long-arrow-left` `mark PyGame`
+        li QtScheduler `i.fa.fa-long-arrow-left` `mark Qt`
+        li WxScheduler `i.fa.fa-long-arrow-left` `mark Wx`
+
+    section.slide
+      h2.shout Some
+        br more things
+
+    section.slide
+      h2 Parallel Algorithms in PyToolz
       p
         | PyToolz does `mark not implement` parallel processing systems.
           It does however `mark provide parallel algorithms` that can extend
@@ -823,16 +856,28 @@ html lang="en"
     section#references.slide
       h2 References
       ul
-        li Book: Python Reactive Programming, November 2016
-        li Book: Reactive Programming with Scala and Akka, February 2016
-        li Book: Reactive Programming with RxJava, August 2016
-          br
-            img src="pictures/rxpybook.png" alt=""
-            ,
-            img src="pictures/rxscalabook.png" alt=""
-            ,
-            img src="pictures/rxjavabook.gif" alt=""
-      p.note `i Python Reactive Programming` is wrote by Dag Brattli, RxPy author
+        li, Book:
+          a href="https://www.packtpub.com/application-development/python-reactive-programming"
+            Python Reactive Programming
+          | , November 2016
+        li, Book:
+          a href="https://www.safaribooksonline.com/library/view/reactive-programming-with/9781783984343/"
+            Reactive Programming with Scala and Akka
+          | , February 2016
+        li, Book: 
+          a href="https://www.safaribooksonline.com/library/view/reactive-programming-with/9781491931646/"
+            Reactive Programming with RxJava
+          | , August 2016
+        p
+          a href="https://www.packtpub.com/application-development/python-reactive-programming"
+            img src="pictures/rxpybook.png" alt="by Dag Brattli"
+          ,
+          a href="https://www.safaribooksonline.com/library/view/reactive-programming-with/9781783984343/"
+            img src="pictures/rxscalabook.png" alt="by Suraj Atreya; Prasanna Kumar Sathyanarayanan"
+          ,
+          a href="https://www.safaribooksonline.com/library/view/reactive-programming-with/9781491931646/"
+            img src="pictures/rxjavabook.gif" alt="by Ben Christensen; Tomasz Nurkiewicz"
+      p.note.text-center `i Python Reactive Programming` is wrote by Dag Brattli, RxPy author
       -sass
         #references {
           img { height: 200px; }
@@ -846,7 +891,7 @@ html lang="en"
         li Gist:
           i, The introduction to Reactive Programming you've been missing
           , by @andrestaltz,
-          span.not including the use case of Promise
+          span.not including the use case of `mark Promise`
 
         li Slide:
           i, Functional Reactive Python On Introducing CS to High School Students
