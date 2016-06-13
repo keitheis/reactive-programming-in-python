@@ -177,6 +177,8 @@ html lang="en"
           In [2]: list(str_map)
           Out[2]: ['1', '2', '3']"""
       pre: code == code2html.reformat('python', code)
+      .text-center
+        img src="pictures/map.png" alt="" width="40%"
 
     section.slide
       h2 Lambda
@@ -243,7 +245,7 @@ html lang="en"
       img.cover src="pictures/stream.jpg" alt="" width="100%"
 
     section.slide
-      h2 Stream in `mark for in if`
+      h2 Stream in `code for in if`
       -py
         code = """
           ( expression for expr in sequence1
@@ -255,11 +257,12 @@ html lang="en"
                        for exprN in sequenceN
                        if conditionN )"""
       pre: code == code2html.reformat('python', code)
-      p.note.text-center visual messive!
+      p.note.text-center Visual messive!
 
     section.fullcode.slide
       -py
         code = """
+          # Imperactive style.
           from pathlib import Path
           from zipfile import ZipFile
 
@@ -275,11 +278,8 @@ html lang="en"
                   zipped_content_list.append(item_name)"""
       pre: code == code2html.reformat('python', code)
 
-    section.slide
-      h2.shout Rewrite in
-        br a reactive style
-
     section.fullcode.slide
+      h2 Rewrite with PyFunctional
       -py
         code = """
           from pathlib import Path
@@ -295,6 +295,26 @@ html lang="en"
               .flat_map(lambda a_zipfile: a_zipfile.namelist())
           )"""
       pre: code == code2html.reformat('python', code)
+
+    section.fullcode.slide
+      h2 Parallel with PyFunctional
+      -py
+        code = """
+          from pathlib import Path
+          from zipfile import ZipFile
+          from functional import pseq
+
+          zipped_content_list = (
+              pseq(Path(".").iterdir())
+              .filter(lambda item: item.is_file())
+              .filter(
+                lambda file: file.name.lower().endswith('.zip')
+              ).map(ZipFile)
+              .flat_map(lambda a_zipfile: a_zipfile.namelist())
+          )"""
+      pre: code == code2html.reformat('python', code)
+      p.note.text-center
+        | `mark pseq` is new in PyFunctional 0.7
 
     section.slide
       h2 Feel like SQL query
@@ -387,8 +407,10 @@ html lang="en"
               f.name for f in folder_path.iterdir()
               if f.is_file() and f.name.startswith('vmlinuz')
           ]
-          # How to add one or two more levels of loop?
-
+          # To add one more filter to exclude rescue kernel?"""
+      pre: code == code2html.reformat('python', code)
+      -py
+        code = """
           kernels = seq(folder_path.iterdir()) \\
               .filter(lambda f: f.is_file()) \\
               .filter(lambda f: f.name.startswith('vmlinuz')) \\
@@ -562,6 +584,7 @@ html lang="en"
 
     section.slide
       h2.shout `span.kblack Asynchronous` Programming is Ha...Ha...Hard
+      p.note Reactive Programming at Netflix
 
     section.fullcode.max.slide
       -py
@@ -615,7 +638,7 @@ html lang="en"
           | To support receiving events via push,
             an Observable/Observer pair connect via subscription.
             The Observable `mark represents the stream of data`
-            and `mark can be subscribed to by an Observer`
+            and `mark can be subscribed to by an Observer`.
 
     section.slide
       h2 What Observables (Cont.)
@@ -681,6 +704,14 @@ html lang="en"
       pre: code == code2html.reformat('python', code)
 
     section.slide
+      h2 Another common usage of flat_map
+      p
+        | For `mark a function that takes a event and returns Observable stream`,
+          in order to continue the operations of
+          upstream Observable, we usually want to flatMap
+          `mark the sequence of returned Observable stream` to just one Observable stream.
+
+    section.slide
       h2 Parallel with Rx Schedulers
       figure
         blockquote
@@ -731,8 +762,8 @@ html lang="en"
       pre: code == code2html.reformat('python', code)
 
     section.slide
-      h2.shout RxPy
-        br with Scheduler
+      h2.shout rx.concurrency
+        br `span.fs-s .NewThreadScheduler`
 
     section.fullcode.max.slide
       -py
@@ -753,13 +784,13 @@ html lang="en"
               return value * 2
 
           scheduler = rx.concurrency.NewThreadScheduler()
-          total_value = rx.Observable.from_([1, 2, 3, 4]) \\
+          rx.Observable.from_([1, 2, 3, 4]) \\
               .flat_map(lambda num: work_slowly(num) \\
                                     .subscribe_on(scheduler)) \\
               .reduce(lambda a, b: a + b) \\
               .subscribe(print)
 
-          time.sleep(1.1)"""
+          time.sleep(1.01)"""
       pre: code == code2html.reformat('python', code)
 
     section.slide
@@ -776,6 +807,32 @@ html lang="en"
           Done for big 4
           20"""
       pre: code == code2html.reformat('text', code)
+
+    section.slide
+      h2.shout Back to RxPy
+
+    section.fullcode.max.slide
+      h2 With `code rx.concurrency.Scheduler`
+      -py
+        code = """
+          import time
+          import rx
+
+          def work_slowly(x):
+            print('Processing ' + str(x))
+            time.sleep(1)
+
+          rx.Observable.range(1, 3) \\
+            .select_many(lambda i: rx.Observable.start(
+                lambda: work_slowly(i),
+                scheduler=rx.concurrency.Scheduler.timeout)
+            ) \\
+            .observe_on(rx.concurrency.Scheduler.event_loop) \\
+            .subscribe(print)
+
+          time.sleep(1.01)  # wait to complete"""
+
+      pre: code == code2html.reformat('python', code)
 
     section.slide
       h2 RxPy Schedulers
