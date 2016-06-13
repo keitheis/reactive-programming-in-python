@@ -980,7 +980,7 @@ html lang="en"
           ,
           a href="https://www.safaribooksonline.com/library/view/reactive-programming-with/9781491931646/"
             img src="pictures/rxjavabook.gif" alt="by Ben Christensen; Tomasz Nurkiewicz"
-      p.note.text-center `i Python Reactive Programming` is wrote by Dag Brattli, RxPy author
+      p.note.text-center `i Python Reactive Programming` is written by Dag Brattli, RxPy author
       -sass
         #references {
           img { height: 200px; }
