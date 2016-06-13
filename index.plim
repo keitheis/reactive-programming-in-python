@@ -584,9 +584,13 @@ html lang="en"
 
     section.slide
       h2.shout `span.kblack Asynchronous` Programming is Ha...Ha...Hard
-      p.note Reactive Programming at Netflix
+
+    section.slide
+      img.cover src="pictures/hard_async_in_netflix.png" alt="" width="100%"
 
     section.fullcode.max.slide
+      h2
+        How about `code concurrent.futures`?
       -py
         code = """
           import time
@@ -605,6 +609,7 @@ html lang="en"
                       lambda num: worker.submit(work_slowly, num)
                   ).subscribe(print)"""
       pre: code == code2html.reformat('python', code)
+      p.note.text-center A bite of asynchronous coding mixed with RxPy.
 
     section.slide
       h2 Observable, flat_map, subscribe
@@ -762,6 +767,9 @@ html lang="en"
       pre: code == code2html.reformat('python', code)
 
     section.slide
+      h2.shout Back to RxPy
+
+    section.slide
       h2.shout rx.concurrency
         br `span.fs-s .NewThreadScheduler`
 
@@ -807,9 +815,6 @@ html lang="en"
           Done for big 4
           20"""
       pre: code == code2html.reformat('text', code)
-
-    section.slide
-      h2.shout Back to RxPy
 
     section.fullcode.max.slide
       h2 With `code rx.concurrency.Scheduler`
